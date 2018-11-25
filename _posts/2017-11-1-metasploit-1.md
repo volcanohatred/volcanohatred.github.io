@@ -440,7 +440,7 @@ set payload windows/x64/meterpreter/reverse_tcp
 
 <table><tr><td bgcolor=#00001><ol>
 <li><font size="3" color="rgb(102,217,239)" face="Fira Code">CTL_CODE</font>
-<li><font size="3" color="rgb(102,217,239)" face="Fira Code">CTL_CODE</font></table></tr>
+<li><font size="3" color="rgb(102,217,239)" face="Fira Code">CTL_CODE</font></table></tr>  
 
 ```objc
 @property (nonatomic, strong) NSString *target;
