@@ -438,7 +438,7 @@ set payload windows/x64/meterpreter/reverse_tcp
 
 这只是一次很简单的利用metasploit框架进行的渗透测试，算是基础中的基础了，掌握了这些才是踏过metasploit的初级门槛，真正的实际用法和高级用法以后会讲到。
 
-<table><tr><td bgcolor=#00000>
+<table><tr><td bgcolor=#00001>
 <ol>
 <li><font size="3" color="rgb(102,217,239)" face="Fira Code">CTL_CODE</font>
 <li><font size="3" color="rgb(102,217,239)" face="Fira Code">CTL_CODE</font></table></tr>
