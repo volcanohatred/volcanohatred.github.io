@@ -145,7 +145,7 @@ Back参数主要用于返回。比如你进入了某一个漏洞模块的设置�
 ![jobs](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片16.png)  
 
 ‍‍**Kill参数‍‍**  
-这个参数主要是配合jobs参数进行使用。如果你使用jobs参数后发现了一些不要的任务，那么使用kill参数就可以终止一些不需要的进程。一般都是kill <jobs编号>。  
+这个参数主要是配合jobs参数进行使用。如果你使用jobs参数后发现了一些不要的任务，那么使用kill参数就可以终止一些不需要的进程。一般都是kill+jobs编号。  
 ‍‍**Load参数‍‍**  
 这个参数可以从metasploit的plug库里面加载一些插件。  
 ‍‍**Unload参数‍‍**  
@@ -353,6 +353,7 @@ run
 **简易木马的用途有限，就是自己有对方主机的掌控权，或者对方没有杀软，不然像这种级别的木马是百分之百会被查杀的！！！**
 ### 3.5后渗透阶段
 后渗透阶段即拿到目标主机反弹的shell后或者在对目标的渗透中离目标主机所在网络位置更进一步后所处的阶段。这个阶段很关键，涉及到对目标机密数据的窃取，和后门安置以及免杀等方面的操作，也是渗透测试中极为关键的一步，后文的进阶会有专门的专题讲解。在msf中，shell类型也就是payload的类型，Metasploit提供了很多payload，meterpreter算是高级payload了。既然是高级payload当然自有它的优势，meterpreter支持多平台，并且可扩展，纯内存的工作模式，而且支持流量加密，所以meterpreter是metasploit框架中必不可少的部分。
+```
 ? – 帮助菜单
 background – 将当前会话移动到背景
 bgkill – 杀死一个背景 meterpreter 脚本
@@ -427,7 +428,8 @@ webcam_chat-开始视频聊天，对方会有弹窗
 webcam_list-查看摄像头列表
 webcam_snap-拍摄一张照片
 webcam_stream-开始摄像监控
-当然这些命令不是都能成功执行的，好多会被杀软查杀，还有好多需要系统权限，这个后面的meterpreter后渗透专题会继续深入。
+```  
+当然这些命令不是都能成功执行的，好多会被杀软查杀，还有好多需要系统权限，这个后面的meterpreter后渗透专题会继续深入。  
 ### 3.6实战练习
 上文介绍了metasploit大体的结构和简单的用法，现在我们利用所学的知识对一台有漏洞的主机进行测试攻击：
 任务：已知局域网中的几台主机都存在ms17010漏洞，请利用msf进行攻击！！
