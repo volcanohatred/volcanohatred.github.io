@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="styles/default.css">
+<script src="highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>  
 ---
 layout:     post
 title:      Metasploit渗透测试工具（一）
