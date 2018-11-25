@@ -438,7 +438,7 @@ set payload windows/x64/meterpreter/reverse_tcp
 
 这只是一次很简单的利用metasploit框架进行的渗透测试，算是基础中的基础了，掌握了这些才是踏过metasploit的初级门槛，真正的实际用法和高级用法以后会讲到。
 
-```cpp,monokai
+```cpp,monokai  
 #include <ntddk.h>        //标准驱动头文件
 
 //设备名称 比如C盘对应的设备名：\Device\HarddiskVolume3
