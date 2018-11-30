@@ -13,7 +13,7 @@ tags:
 
 ## 进阶教程
 前面讲了讲Metasploit的基础用法，但是在实际渗透测试中，那些基础用法可能不太适用，下面列举比较实用的高级应用场景和技巧。
-### 4.1Msf+shadowbroker-master
+### 4.1msf+shadowbroker-master
  ms17010是2017年的一个神级smb漏洞，上文介绍了msf利用ms17010对win7电脑的一次入侵，但是msf里面的ms17010的exp支持的系统有限，只支持win7和win2008，但是在渗透测试中，会遇到很多winxp和win2003这样的主机。所以，对后两个系统的利用可以借助ms17010的原始工具包shadowbroker-master,因为msf里面ms17010的模块也是通过它移植出来的。  
 **Shadowbrokermaster工具介绍：**  
 在2016 年 8 月有一个 “Shadow Brokers” 的黑客组织号称入侵了方程式组织窃取了大量机密文件，并将部分文件公开到了互联网上，方程式（Equation Group）据称是 NSA（美国国家安全局）下属的黑客组织，有着极高的技术手段。这部分被公开的文件包括不少隐蔽的地下的黑客工具。另外 “Shadow Brokers” 还保留了部分文件，打算以公开拍卖的形式出售给出价最高的竞价者，“Shadow Brokers” 预期的价格是 100 万比特币（价值接近5亿美元）。而“Shadow Brokers” 的工具一直没卖出去。  
@@ -126,7 +126,7 @@ db_autopwn –p –t –e
 结果发现没有返回的会话。现在对学校一个未知主机进行攻击（ip：10.79.50.205）  
 ![autopwn](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片19.png)  
 当然这个模块的攻击是不准确的，而且成功率也不高。可以适当性的把每个模块的攻击时间间隔加大，可提高准确性。
-### 4.3Msf+python制作免杀木马
+### 4.3msf+python制作免杀木马
 木马免杀方法很多，有编译，加壳，加花（修改特征码）但是经过实践发现：脚本语言嵌入恶意荷载并且编译成exe进行免杀，效果较好且制作比较方便，因为python比较流行，就讲讲msf+python实现免杀：  
 *准备环境（python2.6+，pywin32，pyinstaller)*
 利用msfvenom生成恶意荷载：（新版msf中msfvenom替代了msfpayload和msfencode）  
@@ -212,7 +212,7 @@ upx -5 –o 要覆盖的文件路径 目标文件路径
 然后把加壳的v5.exe进行云查杀：  
 ![免杀](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片27.png)  
 可以看出，全球各大杀软都没查出这是木马！这样一个免杀的木马就做出来了，后续的操作当然就是捆绑加诱导目标运行这个木马了，这里不再深入！当然木马的免杀还可以修改特征码达到免杀，但是每个杀软公司都有自己的病毒识别特征码，所以修改特征码局限性比较大，只能针对某个指定公司，而且门槛比较高。总之，免杀还是这种效果好！！！
-### 4.4Msf+mimikatz提取目标明文密码
+### 4.4msf+mimikatz提取目标明文密码
 Mimikatz俗称法国神器，是一个轻量级的调试工具，功能很多，不但可以进行域身份的伪造还可以抓取内存中的明文密码，抓密码的原理是从lsass.exe进程中直接获取密码信息进行破解，而且该破解非暴力破解，而是直接根据算法进行反向计算，所以再复杂的密码也会被破解！  
 支持的版本：  
 ```
@@ -241,7 +241,7 @@ run windows/gather/smart_hashdump
 use exploit/windows/smb/psexec  
 （此处不再演示）
 用途：主要用于局域网服务器中，因为局域网服务器基本上密码相同，获取其中一个hash即可入侵局域网中和本主机相同登录密码的主机。  
-### 4.5Msf+ngrok穿透内网
+### 4.5msf+ngrok穿透内网
 很多人在用msf进行渗透测试的过程中，因为没有公网地址或者固定的ip地址，导致使用msf离不开自己的局域网，把一个渗透神器的格局缩小了，现在介绍一下如何使用msf+ngrok，将msf变成纵横互联网的大杀器！  
 ![ngrok](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片30.png)  
 ngrok 是一个反向代理，将某个数据流连接到一个公共端点，然后再通过这个公共端点反向连接到本地某个端口，因为ngrok每次使用的外网地址会变化，而sunny-ngrok因为每次是固定外网地址，所以使用sunny-ngrok来实现内网穿透。
